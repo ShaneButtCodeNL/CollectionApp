@@ -1,0 +1,58 @@
+<div class="titleContainer">
+   <div class="leftTitleBar titleBarPartition">
+      <!-- Hidden on login -->
+      <div class="@logoutDisplay titleItem">
+         <button type="button" class="titleButton" @onclick="Login">Login</button>
+      </div>
+      <!-- Hidden on logout -->
+      <div class="@loginDisplay titleItem">
+         <button type="button" class="titleButton">Add Item</button>
+      </div>
+      <!-- Hidden on logout -->
+      <div class="@loginDisplay titleItem">
+         <button type="button" class="titleButton" @onclick="Logout">Logout</button>
+      </div>
+      <div class="titleItem">
+         <button type="button" class="titleButton modeButton @modeButtonClass" @onclick="SwapMode">@mode Mode</button>
+      </div>
+   </div>
+   <div class="centerTitleBar titleBarPartition">
+      <div class="titleItem">My Collection App</div>
+   </div>
+   <div class="rightTitleBar titleBarPartition">
+      <div class="titleItem">Search</div>
+   </div>
+</div>
+
+@code{
+   bool loggedIn=false;
+   string loginDisplay="hideItem";
+   string logoutDisplay="showItem";
+
+   string mode="Dark";
+
+   string modeButtonClass="darkButton";
+   
+   private void SwapMode(){
+      if(mode=="Dark"){
+         mode="Light";
+         modeButtonClass="lightButton";
+      }
+
+      else{
+         mode="Dark";
+         modeButtonClass="darkButton";
+      }
+   }
+
+   private void Login(){
+      loggedIn=true;
+      loginDisplay="showItem";
+      logoutDisplay="hideItem";
+   }
+   private void Logout(){
+      loggedIn=false;
+      loginDisplay="hideItem";
+      logoutDisplay="showItem";
+   }
+}

@@ -1,0 +1,45 @@
+.navContainer {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.collectionNav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navItem {
+  border: 1px solid;
+  flex-grow: 1;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+::deep a {
+  margin: auto;
+}
+::deep a:link {
+  color: rgb(255, 230, 0);
+}
+::deep a:active {
+  color: rgb(255, 230, 0);
+}
+::deep a:visited {
+  color: rgb(255, 230, 0);
+}
+::deep a.active {
+  color: gold;
+  z-index: 1;
+}
+::deep a.active::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: slategray;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}

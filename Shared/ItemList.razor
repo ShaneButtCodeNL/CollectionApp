@@ -1,0 +1,42 @@
+@using CollectionApp.Models;
+@using System.Text.Json;
+@inject IHttpClientFactory _clientFactory
+
+@if(string.IsNullOrWhiteSpace(errorString)==false){
+    <div>@errorString</div>
+}
+else if(items == null){
+    <div>Loading . . .</div>
+}
+
+else{
+    @foreach (Item item in items)
+    {
+        <ItemDisplay DisplayItem=@item/>
+    }
+}
+
+@code {
+    [Parameter]
+    public string? ItemCall{get;set;}
+    private List<Item>? items;
+    private string? errorString;
+
+    private ItemDetails? GetDetails(Item i){
+        return JsonSerializer.Deserialize<ItemDetails>(i.Details);
+    }
+
+    protected override async Task OnInitializedAsync(){
+        var req=new HttpRequestMessage(HttpMethod.Get,$"https://localhost:7000/api/Item/{@ItemCall}");
+        
+        var client=_clientFactory.CreateClient();
+
+        HttpResponseMessage res=await client.SendAsync(req);
+        if(res.IsSuccessStatusCode){
+            items=await res.Content.ReadFromJsonAsync<List<Item>>();
+            items.Sort();
+            errorString=null;
+        }
+        else errorString=$"Something went wrong: {res.ReasonPhrase}";
+    }
+}

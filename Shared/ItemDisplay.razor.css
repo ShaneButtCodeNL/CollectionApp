@@ -1,0 +1,62 @@
+.itemDisplay {
+  border: outset 1px;
+  display: flex;
+  border-radius: 1em;
+  padding: 1em;
+  margin: 1em auto;
+  width: 60%;
+  height: 40vh;
+  min-width: min-content;
+}
+legend {
+  float: none;
+  width: fit-content;
+  padding: 0em 0.3em 0.3em 0.2em;
+  margin: 0;
+  margin-left: 1em;
+}
+.itemDisplayImage {
+  min-width: 250px;
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid;
+  border-radius: 1em;
+}
+.itemDisplayRight {
+  flex-grow: 1;
+  height: fit-content;
+  margin: auto 0;
+}
+.itemDisplayLeft {
+  width: 30%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  min-width: min-content;
+}
+
+.valuesContainer {
+  background-color: rgba(100, 100, 100, 0.1);
+  border: 1px solid;
+  max-width: clamp(150px, 50%, 1000px);
+  margin: 0 0 0 3em;
+  padding: 1em 2em;
+  border-radius: 2em;
+  min-width: min-content;
+}
+
+.valueContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 80%;
+  min-width: 244px;
+  gap: 1em;
+}
+
+.valueItem {
+  margin: auto 0;
+}
+
+.valueItemLeft {
+  text-align: right;
+}

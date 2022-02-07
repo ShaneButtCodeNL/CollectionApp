@@ -1,0 +1,126 @@
+@using CollectionApp.Models;
+@using System.Text.Json;
+
+
+<fieldset class="itemDisplay">
+   <legend>@DisplayItem.Type</legend>
+   <div class="itemDisplayLeft">
+      <img src=@DisplayItem.ImgPath class="itemDisplayImage" />
+   </div>
+   <div class="itemDisplayRight">
+      <div class="valuesContainer">
+         @if(@details.Type != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Type :</div>
+               <div class="valueItem">@details.Type</div>
+            </div>
+         }
+         <div class="valueContainer">
+            <div class="valueItem valueItemLeft">Name :</div>
+            <div class="valueItem">@details.Name</div>
+         </div>
+         @if(@details.From != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">From Series :</div>
+               <div class="valueItem">@details.From</div>
+            </div>
+         }
+         @if(@details.Volume != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Volume :</div>
+               <div class="valueItem">@details.Volume</div>
+            </div>
+         }
+         @if(@details.Platform != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Platform :</div>
+               <div class="valueItem">@details.Platform</div>
+            </div>
+         }
+         @if(@details.MediaType != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Media Type :</div>
+               <div class="valueItem">@details.MediaType</div>
+            </div>
+         }
+         @if(@details.ReleaseDate != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Release Date :</div>
+               <div class="valueItem">@details.ReleaseDate</div>
+            </div>
+         }
+         @if(@details.Author != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Author :</div>
+               <div class="valueItem">@details.Author</div>
+            </div>
+         }
+         @if(@details.Publisher != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Publisher :</div>
+               <div class="valueItem">@details.Publisher</div>
+            </div>
+         }
+         @if(@details.LimitedEdition != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Limited Edition :</div>
+               <div class="valueItem">@formatBool(@details.LimitedEdition)</div>
+            </div>
+         }
+         @if(@details.AgeRestricted != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">18<sup>+</sup> :</div>
+               <div class="valueItem">@formatBool(@details.AgeRestricted)</div>
+            </div>
+         }
+
+         @if(@details.Sealed != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Sealed :</div>
+               <div class="valueItem">@formatBool(@details.Sealed)</div>
+            </div>
+         }
+         @if(@details.HasCase != null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Has A Case :</div>
+               <div class="valueItem">@formatBool(@details.HasCase)</div>
+            </div>
+         }
+         <div class="valueContainer">
+            <div class="valueItem valueItemLeft">Condition :</div>
+            <div class="valueItem">@details.Condition</div>
+         </div>
+         @if(@details.Genres!=null && @details.Genres.Count != 0){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Genres :</div>
+               <div class="valueItem">
+                  @foreach(var g in @details.Genres){
+                     <div class="genreItem">
+                        @g
+                     </div>
+                  }
+                  </div>
+            </div>
+         }
+      </div>
+   </div>
+</fieldset>
+
+
+@code{
+   [Parameter]
+   public Item? DisplayItem{get;set;} 
+   ItemDetails? details;
+ 
+   private string formatBool(bool? b){
+         if(b==true)return "Yes";
+         return "No";
+      }
+
+   protected override void OnParametersSet(){
+      details=JsonSerializer.Deserialize<ItemDetails>(DisplayItem.Details);
+   }
+
+
+
+}
