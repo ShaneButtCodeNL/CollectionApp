@@ -21,16 +21,16 @@
   margin: auto;
 }
 ::deep a:link {
-  color: rgb(255, 230, 0);
+  color: var(--dark-text);
 }
 ::deep a:active {
-  color: rgb(255, 230, 0);
+  color: var(--dark-text);
 }
 ::deep a:visited {
-  color: rgb(255, 230, 0);
+  color: var(--dark-text);
 }
 ::deep a.active {
-  color: gold;
+  color: var(--dark-text);
   z-index: 1;
 }
 ::deep a.active::before {
@@ -38,7 +38,37 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: slategray;
+  background-color: rgba(250, 250, 250, 0.3);
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.darkMode {
+  background-color: transparent;
+}
+.lightMode {
+  background-color: transparent;
+}
+
+.lightMode ::deep a:link {
+  color: var(--light-text);
+}
+.lightMode ::deep a:active {
+  color: var(--light-text);
+}
+.lightMode ::deep a:visited {
+  color: var(--light-text);
+}
+.lightMode ::deep a.active {
+  color: var(--light-text);
+  z-index: 1;
+}
+.lightMode ::deep a.active::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(200, 190, 190, 0.4);
   top: 0;
   left: 0;
   z-index: -1;

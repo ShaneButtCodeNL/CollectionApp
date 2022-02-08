@@ -1,12 +1,12 @@
 <div class="navContainer">
-   <nav class="collectionNav">
-      <div class="navItem">
+   <nav class="collectionNav @Mode">
+      <div class="navItem  @Mode">
          <NavLink class="navLink" href="" Match="NavLinkMatch.All">All</NavLink>
       </div>
-      <div class="navItem">
+      <div class="navItem  @Mode">
          <NavLink href="anime">Anime</NavLink>
       </div>
-      <div class="navItem">
+      <div class="navItem @Mode">
          <NavLink href="figure">Figure</NavLink>
       </div>
       <div class="navItem">
@@ -17,3 +17,8 @@
       </div>
    </nav>
 </div>
+
+@code{
+   [Parameter]
+   public string? Mode{get;set;}
+}

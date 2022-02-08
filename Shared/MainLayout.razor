@@ -2,12 +2,28 @@
 
 <PageTitle>CollectionApp</PageTitle>
 
-<div class="page">
-    <TitleBar />
-    <MainNav />
+<div class="page @Mode @MyMode">
+    <TitleBar ChangeMode="@ChangeMode" Mode="@Mode"/>
+    <MainNav Mode="@Mode" />
     <main>
-        <article class="content px-4">
-            @Body
-        </article>
+        @Body
     </main>
 </div>
+
+@code{
+    private string Mode="darkMode";
+
+    private string MyMode="darkModeMain";
+
+    public void ChangeMode(){
+        if(Mode=="darkMode"){
+            Mode="lightMode";
+            MyMode="lightModeMain";
+        }
+        else{
+             Mode="darkMode";
+             MyMode="darkModeMain";
+        }
+        StateHasChanged();
+    }
+}

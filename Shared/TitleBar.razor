@@ -25,6 +25,10 @@
 </div>
 
 @code{
+   [Parameter]
+   public string? Mode{get;set;}
+   [Parameter]
+   public Action? ChangeMode{get;set;}
    bool loggedIn=false;
    string loginDisplay="hideItem";
    string logoutDisplay="showItem";
@@ -43,6 +47,7 @@
          mode="Dark";
          modeButtonClass="darkButton";
       }
+      ChangeMode?.Invoke();
    }
 
    private void Login(){

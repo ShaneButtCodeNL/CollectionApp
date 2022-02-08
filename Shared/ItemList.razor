@@ -21,13 +21,14 @@ else{
     public string? ItemCall{get;set;}
     private List<Item>? items;
     private string? errorString;
+    private string ApiString="https://localhost:7000/api/Item/";
 
     private ItemDetails? GetDetails(Item i){
         return JsonSerializer.Deserialize<ItemDetails>(i.Details);
     }
 
     protected override async Task OnInitializedAsync(){
-        var req=new HttpRequestMessage(HttpMethod.Get,$"https://localhost:7000/api/Item/{@ItemCall}");
+        var req=new HttpRequestMessage(HttpMethod.Get,$"{@ApiString}{@ItemCall}");
         
         var client=_clientFactory.CreateClient();
 
@@ -37,6 +38,9 @@ else{
             items.Sort();
             errorString=null;
         }
-        else errorString=$"Something went wrong: {res.ReasonPhrase}";
+        else {
+            errorString=$"Something went wrong: {res.ReasonPhrase}";
+            items=new List<Item>();
+        }
     }
 }
