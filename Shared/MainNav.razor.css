@@ -1,6 +1,7 @@
 .navContainer {
   width: 60%;
   margin: 0 auto;
+  transition: color 600ms ease-out;
 }
 
 .collectionNav {
@@ -15,10 +16,14 @@
   display: grid;
   place-items: center;
   position: relative;
+  transition: color 600ms ease-out;
+  will-change: color;
 }
 
 ::deep a {
   margin: auto;
+  transition: color 600ms ease-out;
+  will-change: color;
 }
 ::deep a:link {
   color: var(--dark-text);

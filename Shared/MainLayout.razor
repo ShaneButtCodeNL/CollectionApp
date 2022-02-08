@@ -1,13 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>CollectionApp</PageTitle>
-
 <div class="page @Mode @MyMode">
-    <TitleBar ChangeMode="@ChangeMode" Mode="@Mode"/>
-    <MainNav Mode="@Mode" />
-    <main>
-        @Body
-    </main>
+    <div class="mainApp">
+        
+        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode"/>
+        <MainNav Mode="@Mode" />
+        <main>
+            @Body
+        </main>
+    </div>
 </div>
 
 @code{

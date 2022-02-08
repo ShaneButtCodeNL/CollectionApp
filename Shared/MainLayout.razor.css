@@ -3,9 +3,14 @@
 
   height: 100vh;
   width: 100vw;
-  overflow: auto;
+  overflow: visible;
 }
 
 main {
   flex: 1;
+}
+
+.mainApp {
+  overflow: auto;
+  height: 100%;
 }

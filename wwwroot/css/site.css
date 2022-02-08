@@ -28,6 +28,7 @@
 html,
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
 }
 .darkMode {
   color: var(--dark-text);
@@ -41,10 +42,45 @@ body {
   background-color: var(--light-bg);
 }
 .lightModeMain {
-  background-image: var(--light-gradient);
+  background-image: var(--dark-gradient);
 }
 .page {
-  transition: color 50ms;
+  position: relative;
+  transition: color 600ms ease-out;
+  will-change: color;
+  z-index: 2;
+}
+.page::before {
+  position: absolute;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  background-image: var(--light-gradient);
+  background-position: 50vw;
+  left: -100vw;
+  top: 0;
+  z-index: -1;
+  transition: left 500ms ease-out;
+  will-change: left;
+}
+.page::after {
+  position: absolute;
+  content: "";
+  width: 100vw;
+  height: 100vh;
+  background-image: var(--light-gradient);
+  background-position: -50vw;
+  right: -100vw;
+  top: 0;
+  z-index: -1;
+  transition: right 500ms ease-out;
+  will-change: right;
+}
+.lightModeMain::before {
+  left: -50vw;
+}
+.lightModeMain::after {
+  right: -50vw;
 }
 h1:focus {
   outline: none;
