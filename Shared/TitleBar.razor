@@ -2,7 +2,7 @@
    <div class="leftTitleBar titleBarPartition">
       <!-- Hidden on login -->
       <div class="@logoutDisplay titleItem">
-         <button type="button" class="titleButton" @onclick="Login">Login</button>
+         <button type="button" class="titleButton" @onclick="@ChangeShow">Login</button>
       </div>
       <!-- Hidden on logout -->
       <div class="@loginDisplay titleItem">
@@ -25,11 +25,34 @@
 </div>
 
 @code{
+   private bool MyLogin;
+   [Parameter]
+   public Action ChangeShow{get;set;}
+   [Parameter]
+   public Action Logout{get;set;}
+   [Parameter]
+   public bool Show{get;set;}
    [Parameter]
    public string? Mode{get;set;}
    [Parameter]
    public Action? ChangeMode{get;set;}
-   bool loggedIn=false;
+
+   [Parameter]
+   public bool loggedIn{
+      get=>MyLogin;
+      set{
+         MyLogin=value;
+         if(value){
+            logoutDisplay="hideItem";
+            loginDisplay="showItem";
+         }
+         else{
+            loginDisplay="hideItem";
+            logoutDisplay="showItem";
+         }
+      }
+   }
+   
    string loginDisplay="hideItem";
    string logoutDisplay="showItem";
 
@@ -49,15 +72,9 @@
       }
       ChangeMode?.Invoke();
    }
-
-   private void Login(){
-      loggedIn=true;
-      loginDisplay="showItem";
-      logoutDisplay="hideItem";
-   }
-   private void Logout(){
-      loggedIn=false;
+   @* private void Logout(){
+      MyLogin=false;
       loginDisplay="hideItem";
       logoutDisplay="showItem";
-   }
+   } *@
 }

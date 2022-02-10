@@ -2,6 +2,7 @@
 @using System.Text.Json;
 
 
+
 <fieldset class="itemDisplay">
    <legend>@DisplayItem.Type</legend>
    <div class="itemDisplayLeft">
@@ -111,6 +112,9 @@
    [Parameter]
    public Item? DisplayItem{get;set;} 
    ItemDetails? details;
+  
+
+   
  
    private string formatBool(bool? b){
          if(b==true)return "Yes";

@@ -1,12 +1,13 @@
 ﻿@inherits LayoutComponentBase
+@inject IHttpClientFactory _clientFactory
+
 
 <PageTitle>CollectionApp</PageTitle>
 <div class="page @Mode @MyMode">
+    <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
     <div class="mainApp">
-        
-        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode"/>
-        <MainNav Mode="@Mode" />
-        <main>
+        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout"/>
+        <MainNav Mode="@Mode" />        <main>
             @Body
         </main>
     </div>
@@ -14,17 +15,49 @@
 
 @code{
     private string Mode="darkMode";
+    private string FormMode="darkForm";
 
     private string MyMode="darkModeMain";
+
+    public bool loggedIn=false;
+    public bool Show=false;
+
+    private readonly string ApiString="https://localhost:7000/api/Login";
+
+    private readonly HttpClient client=new HttpClient();
+
+    public async void Login(string user,string pass){
+      var data=new {username=user,password=pass};
+      //var data=new FormUrlEncodedContent(inputs);
+      var res=await client.PostAsJsonAsync(ApiString,data);
+      Console.WriteLine("RES:"+res.ToString());
+      loggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
+      if(loggedIn)Show=false;
+      //Console.WriteLine(loggedIn.ToString()+" "+user+" "+pass+" "+res.StatusCode);
+      StateHasChanged();
+   }
+
+   public async void Logout(){
+       loggedIn=false;
+       StateHasChanged();
+
+   }
+
+   public void ChangeShow(){
+       Show=!Show;
+       StateHasChanged();
+   }
 
     public void ChangeMode(){
         if(Mode=="darkMode"){
             Mode="lightMode";
             MyMode="lightModeMain";
+            FormMode="lightForm";
         }
         else{
              Mode="darkMode";
              MyMode="darkModeMain";
+             FormMode="darkForm";
         }
         StateHasChanged();
     }
