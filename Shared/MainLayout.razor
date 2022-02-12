@@ -5,8 +5,9 @@
 <PageTitle>CollectionApp</PageTitle>
 <div class="page @Mode @MyMode">
     <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
+    <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
     <div class="mainApp">
-        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout"/>
+        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
         <MainNav Mode="@Mode" />        <main>
             @Body
         </main>
@@ -22,18 +23,18 @@
     public bool loggedIn=false;
     public bool Show=false;
 
+    public bool ShowAddItem=false;
+
     private readonly string ApiString="https://localhost:7000/api/Login";
 
     private readonly HttpClient client=new HttpClient();
 
     public async void Login(string user,string pass){
       var data=new {username=user,password=pass};
-      //var data=new FormUrlEncodedContent(inputs);
       var res=await client.PostAsJsonAsync(ApiString,data);
       Console.WriteLine("RES:"+res.ToString());
       loggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
       if(loggedIn)Show=false;
-      //Console.WriteLine(loggedIn.ToString()+" "+user+" "+pass+" "+res.StatusCode);
       StateHasChanged();
    }
 
@@ -46,6 +47,10 @@
    public void ChangeShow(){
        Show=!Show;
        StateHasChanged();
+   }
+
+   public void ChangeShowAddItem(){
+       ShowAddItem = !ShowAddItem;
    }
 
     public void ChangeMode(){

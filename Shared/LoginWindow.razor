@@ -6,7 +6,7 @@
          <label for="username">UserName:</label>
          <input type="text" @bind="@Username" @oninput="@((e)=>{Username=(string)e.Value;})" name="username"/>
          <label for="password">Password:</label>
-         <input type="password" @bind="@Password" name="password" @oninput="@((e)=>{Password=(string)e.Value;})" />
+         <input type="password" @bind="@Password" name="password" @oninput="@( (e)=>{Password=(string)e.Value;} )" />
          <button type="button" @onclick="@LoginAction">Login</button>
          <button type="button" @onclick="@Cancel">Cancel</button>
       </form>

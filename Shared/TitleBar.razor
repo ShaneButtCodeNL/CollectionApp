@@ -6,7 +6,7 @@
       </div>
       <!-- Hidden on logout -->
       <div class="@loginDisplay titleItem">
-         <button type="button" class="titleButton">Add Item</button>
+         <button type="button" class="titleButton" @onclick="@ChangeShowAddItem" >Add Item</button>
       </div>
       <!-- Hidden on logout -->
       <div class="@loginDisplay titleItem">
@@ -26,6 +26,8 @@
 
 @code{
    private bool MyLogin;
+   [Parameter]
+   public Action ChangeShowAddItem{get;set;}
    [Parameter]
    public Action ChangeShow{get;set;}
    [Parameter]
