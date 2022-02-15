@@ -8,7 +8,8 @@
     <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
     <div class="mainApp">
         <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
-        <MainNav Mode="@Mode" />        <main>
+        <MainNav Mode="@Mode" />        
+        <main>
             @Body
         </main>
     </div>
@@ -20,7 +21,7 @@
 
     private string MyMode="darkModeMain";
 
-    public bool loggedIn=false;
+    public bool loggedIn=true;
     public bool Show=false;
 
     public bool ShowAddItem=false;
@@ -51,6 +52,8 @@
 
    public void ChangeShowAddItem(){
        ShowAddItem = !ShowAddItem;
+       StateHasChanged();
+
    }
 
     public void ChangeMode(){

@@ -1,3 +1,6 @@
+@using CollectionApp.Models;
+@using System.Text.Json;
+@inject IHttpClientFactory _clientFactory
 
 <div class="addItemWindowContainer @hideWindow" @onclick="@ChangeShowAddItem">
    <div class="addItemWindow">
@@ -5,18 +8,19 @@
          <form class="addItemForm">
             <label for="type">Item Type :</label>
             <select name="type" @bind="@itemType">
-               <option value="anime">Anime</option>
-               <option value="figure">Figure</option>
-               <option value="manga">Manga</option>
-               <option value="videogame">Video Game</option>
+               <option value="Anime">Anime</option>
+               <option value="Figure">Figure</option>
+               <option value="Manga">Manga</option>
+               <option value="VideoGame">Video Game</option>
             </select>
             <label for="imgPath">ImgPath:</label>
             <input type="text" name="imgPath" @bind="@itemImgPath" />
             <label for="name">Name :</label>
             <input type="text" name="name" @bind="@itemName" />
-            @if(itemType=="anime"){
+            @if(itemType=="Anime"){
                <label for="mediatype">Media Type :</label>
                <select name="mediatype" @bind="@itemMediaType" >
+                  <option value="">Don't State</option>
                   <option value="DVD">DVD</option>
                   <option value="BluRay">BluRay</option>
                   <option value="VHS">VHS</option>
@@ -27,7 +31,8 @@
                <label for="publisher">Publisher :</label>
                <input name="publisher" type="text" @bind="@itemPublisher"/>
                <label for="limitededition">Limited Edition :</label>
-               <select name="limitededition" @onchange="@((e)=>{itemLimitedEdition=(string)e.Value=="yes";})" >
+               <select name="limitededition" @bind="@itemLimitedEdition" >
+                  <option value="">Don't State</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                </select>
@@ -50,20 +55,27 @@
                   </select>
                </div>
             }
-            @if(itemType=="figure"){
+            @if(itemType=="Figure"){
                <label for="figuretype">Figure Type :</label>
                <input type="text" name="figuretype" @bind="@itemFigureType"/>
                <label for="from">From :</label>
                <input type="text" name="from" @bind="@itemFrom" />
                <label for="sealed">Sealed :</label>
-               <input type="text" name="sealed" @bind="@itemSealed" />
+               <label for="sealed">Sealed :</label>
+                  <select name="sealed" @bind="@itemSealed" >
+                     <option value="">Don't State</option>
+                     <option value="yes">Yes</option>
+                     <option value="no">No</option>
+                  </select>
                <label for="agerestricted">18<sup>+</sup> :</label>
-               <select name="agerestricted" @onchange="@((e)=>itemAgeRestricted=(string)e.Value=="yes")" >
-                  <option value="no">No</option>
+               <select name="agerestricted" @bind="@itemAgeRestricted" >
+                  <option value="">Don't State</option>
                   <option value="yes">Yes</option>
+                  <option value="no">No</option>
+
                </select>
             }
-            @if(itemType=="manga"){
+            @if(itemType=="Manga"){
                <label for="volume">Volume :</label>
                <input type="text" name="volume" @bind="@itemVolume"/>
                <label for="author">Author :</label>
@@ -71,9 +83,10 @@
                <label for="publisher">Publisher :</label>
                <input name="publisher" type="text" @bind="@itemPublisher"/>
             }
-            @if(itemType=="videogame"){
+            @if(itemType=="VideoGame"){
                <label for="platform">Platform</label>
                <select name="platform" @bind="@itemPlatform" >
+                  <option value="">Don't State</option>
                   <option value="PS1">PS1</option>
                   <option value="PS2">PS2</option>
                   <option value="PS3">PS3</option>
@@ -97,19 +110,65 @@
                   <option value="DS">DS</option>
                   <option value="3DS">3DS</option>
                </select>
+               <label for="releasedate">Release Date :</label>
+               <input type="date" name="releasedate" @bind="@itemReleaseDate" />
+               <label for="publisher">Publisher :</label>
+               <input name="publisher" type="text" @bind="@itemPublisher"/>
+               <label for="limitededition">Limited Edition :</label>
+               <select name="limitededition" @bind="@itemLimitedEdition" >
+                  <option value="">Don't State</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+               </select>
+               <label for="hascase">Has Case :</label>
+               <select name="hasCase" @bind="@itemHasCase" >
+                  <option value="">Don't State</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+               </select>
+               @if(@itemHasCase=="yes"){
+                  <label for="sealed">Sealed :</label>
+                  <select name="sealed" @bind="@itemSealed" >
+                     <option value="">Don't State</option>
+                     <option value="yes">Yes</option>
+                     <option value="no">No</option>
+                  </select>
+               }
+               <label for="genres">Genres :</label>
+               <div name="genres" class="genreContainer">
+                  <select name="firstgenre" @bind="itemGenre1">
+                     @foreach (var g in VideoGameGenres){
+                        <option value=@g>@g</option>
+                     }
+                  </select>
+                  <select name="secondgenre" @bind="itemGenre2" >
+                     @foreach (var g in VideoGameGenres){
+                        <option value=@g>@g</option>
+                     }
+                  </select>
+                  <select name="thirdgenre" @bind="itemGenre3">
+                     @foreach (var g in VideoGameGenres){
+                        <option value=@g>@g</option>
+                     }
+                  </select>
+               </div>
             }
             <label for="condition">Condition</label>
             <input type="text" name="condition" @bind="@itemCondition"/>
-            <button type="button" @onclick="@test">Add Item</button>
+            <button type="button" @onclick="@SendAddItemRequest">Add Item</button>
             <button type="button" @onclick="@ChangeShowAddItem">Cancel</button>
          </form>
       </div>
    </div>
 </div>
 @code{
+
+    private readonly HttpClient client=new HttpClient();
+
+   private readonly string apiString ="https://localhost:7000/api/Item";
    private string hideWindow="hide";
    private Action changeShowAddItem;
-   private string type="anime";
+   private string type="Anime";
    private string mode="dark";
    private bool show=false;
    [Parameter]
@@ -137,24 +196,24 @@
       type=value;
       SoftClear();
    }}
-   private string itemFigureType{get;set;}
-   private string itemName{get;set;}
-   private string itemImgPath{get;set;}
-   private string itemCondition{get;set;}
-   private string itemVolume{get;set;}
-   private bool itemSealed{get;set;}
-   private bool itemHasCase{get;set;}
-   private string itemPlatform{get;set;}
-   private string itemGenre1{get;set;}
-   private string itemGenre2{get;set;}
-   private string itemGenre3{get;set;}
-   private string itemPublisher{get;set;}
-   private string itemAuthor{get;set;}
+   private string? itemFigureType{get;set;}
+   private string? itemName{get;set;}
+   private string? itemImgPath{get;set;}
+   private string? itemCondition{get;set;}
+   private string? itemVolume{get;set;}
+   private string? itemSealed{get;set;}
+   private string? itemHasCase{get;set;}
+   private string? itemPlatform{get;set;}
+   private string? itemGenre1{get;set;}
+   private string? itemGenre2{get;set;}
+   private string? itemGenre3{get;set;}
+   private string? itemPublisher{get;set;}
+   private string? itemAuthor{get;set;}
    private DateTime itemReleaseDate{get;set;}=DateTime.Now;
-   private string itemMediaType{get;set;}
-   private bool itemLimitedEdition{get;set;}
-   private string itemFrom{get;set;}
-   private bool itemAgeRestricted{get;set;}
+   private string? itemMediaType{get;set;}
+   private string? itemLimitedEdition{get;set;}
+   private string? itemFrom{get;set;}
+   private string? itemAgeRestricted{get;set;}
 
    private readonly List<string> AnimeGenres = new List<string>{
       "None",
@@ -213,31 +272,93 @@
       "Battle Royal",
    };
    private void SoftClear(){
-      itemAgeRestricted=false;
+      itemAgeRestricted="";
       itemAuthor="";
       itemCondition="";
+      itemFigureType="";
       itemFrom="";
       itemGenre1="None";
       itemGenre2="None";
       itemGenre3="None";
-      itemHasCase=false;
+      itemHasCase="";
       itemImgPath="";
-      itemLimitedEdition=false;
-      itemMediaType="DVD";
+      itemLimitedEdition="";
+      itemMediaType="";
       itemName="";
       itemPlatform="";
       itemPublisher="";
       itemReleaseDate=DateTime.Now;
-      itemSealed=false;
+      itemSealed="";
       itemVolume="";
    }
 
+
+   private static string? getMonth(int n){
+      if(n==12) return"Dec";
+      if(n==11) return"Nov";
+      if(n==10) return"Oct";
+      if(n==9)  return"Sept";
+      if(n==8)  return"Aug";
+      if(n==7)  return"Jul";
+      if(n==6)  return"Jun";
+      if(n==5)  return"May";
+      if(n==4)  return"Apr";
+      if(n==3)  return"Mar";
+      if(n==2)  return"Feb";
+      if(n==1)  return"Jan";
+      return null;
+   }
+
+   private async void SendAddItemRequest(){
+      List<string?>? newGenres=new List<string?>();
+      if(itemGenre1!="None"){
+         newGenres.Add(itemGenre1);
+      }
+      if(itemGenre2!="None"){
+         newGenres.Add(itemGenre2);
+      }
+      if(itemGenre3!="None"){
+         newGenres.Add(itemGenre3);
+      }
+      if(newGenres.Count==0)newGenres=null;
+      ItemDetails newDetails=new ItemDetails();
+      newDetails.AgeRestricted=GetYesNo(itemAgeRestricted);
+      newDetails.Author=ProcessInput(itemAuthor);
+      newDetails.Condition=ProcessInput(itemCondition);
+      newDetails.From=ProcessInput(itemFrom);
+      newDetails.Genres=newGenres;
+      newDetails.HasCase=GetYesNo(itemHasCase);
+      newDetails.LimitedEdition=GetYesNo(itemLimitedEdition);
+      newDetails.MediaType=ProcessInput(itemMediaType);
+      newDetails.Name=ProcessInput(itemName);
+      newDetails.Platform=ProcessInput(itemPlatform);
+      newDetails.Publisher=ProcessInput(itemPublisher);
+      newDetails.ReleaseDate=$"{getMonth(itemReleaseDate.Month)} {itemReleaseDate.Day} {itemReleaseDate.Year}";
+      newDetails.Sealed=GetYesNo(itemSealed);
+      newDetails.Type=ProcessInput(itemFigureType);
+      newDetails.Volume=(itemVolume==null||itemVolume=="")?null:Int32.Parse(itemVolume);
+      string str=JsonSerializer.Serialize(newDetails);
+      Console.WriteLine(str);
+      var data=new {imgPath=itemImgPath,type=itemType,details=str};
+      var res = await new HttpClient().PostAsJsonAsync(apiString,data);
+      Console.WriteLine("Am getting here . . .");
+      ChangeShowAddItem();
+      //StateHasChanged();
+   }
+
    private void Clear(){
-      itemType="anime";
+      itemType="Anime";
       SoftClear();
    }
    
-   private void test(){
-      Console.WriteLine("Test");
+   private static bool? GetYesNo(string s){
+      if(s=="yes")return true;
+      if(s=="no")return false;
+      return null;
+   }
+
+   private static string? ProcessInput(string s){
+      if(s==null||s=="")return null;
+      return s;
    }
 }
