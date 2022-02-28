@@ -1,6 +1,7 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
 @inject IHttpClientFactory _clientFactory
+@inject ListUpdateService ListUpdater
 
 <div class="addItemWindowContainer @hideWindow" @onclick="@ChangeShowAddItem">
    <div class="addItemWindow">
@@ -60,7 +61,7 @@
                <input type="text" name="figuretype" @bind="@itemFigureType"/>
                <label for="from">From :</label>
                <input type="text" name="from" @bind="@itemFrom" />
-               <label for="sealed">Sealed :</label>
+               
                <label for="sealed">Sealed :</label>
                   <select name="sealed" @bind="@itemSealed" >
                      <option value="">Don't State</option>
@@ -171,6 +172,9 @@
    private string type="Anime";
    private string mode="dark";
    private bool show=false;
+   [Parameter]
+   public Action? Refresh{get;set;}
+
    [Parameter]
    public bool ShowAddItem{get=>show;
    set{
@@ -343,7 +347,8 @@
       var res = await new HttpClient().PostAsJsonAsync(apiString,data);
       Console.WriteLine("Am getting here . . .");
       ChangeShowAddItem();
-      //StateHasChanged();
+      await ListUpdater.Update();
+
    }
 
    private void Clear(){

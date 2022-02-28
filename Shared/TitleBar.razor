@@ -38,6 +38,8 @@
    public string? Mode{get;set;}
    [Parameter]
    public Action? ChangeMode{get;set;}
+   [Parameter]
+   public Action? RefreshMe{get;set;}
 
    [Parameter]
    public bool loggedIn{

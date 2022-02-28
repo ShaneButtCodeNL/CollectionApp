@@ -1,21 +1,25 @@
 ﻿@inherits LayoutComponentBase
+@using CollectionApp.Models;
 @inject IHttpClientFactory _clientFactory
 
-
-<PageTitle>CollectionApp</PageTitle>
-<div class="page @Mode @MyMode">
-    <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
-    <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
-    <div class="mainApp">
-        <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
-        <MainNav Mode="@Mode" />        
-        <main>
-            @Body
-        </main>
+<CascadingValue Value="this">
+    <PageTitle>CollectionApp</PageTitle>
+    <div class="page @Mode @MyMode">
+        <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
+        <AddItem Refresh="@Refresh" ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
+        <div class="mainApp">
+            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" RefreshMe="@RefreshMe" />
+            <MainNav Mode="@Mode" />        
+            <CascadingValue Value="@Items">
+                @Body
+            </CascadingValue>
+        </div>
     </div>
-</div>
+</CascadingValue>
 
 @code{
+    public List<Item>? Items=null;
+    private bool MainBodyRefresh=true;
     private string Mode="darkMode";
     private string FormMode="darkForm";
 
@@ -26,17 +30,20 @@
 
     public bool ShowAddItem=false;
 
-    private readonly string ApiString="https://localhost:7000/api/Login";
+    private readonly string ApiLoginString="https://localhost:7000/api/Login";
 
     private readonly HttpClient client=new HttpClient();
 
     public async void Login(string user,string pass){
       var data=new {username=user,password=pass};
-      var res=await client.PostAsJsonAsync(ApiString,data);
+      var res=await client.PostAsJsonAsync(ApiLoginString,data);
       Console.WriteLine("RES:"+res.ToString());
       loggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
       if(loggedIn)Show=false;
       StateHasChanged();
+   }
+   public void Refresh(){
+       MainBodyRefresh=!MainBodyRefresh;
    }
 
    public async void Logout(){
@@ -67,6 +74,10 @@
              MyMode="darkModeMain";
              FormMode="darkForm";
         }
+        StateHasChanged();
+    }
+    public void RefreshMe(){
+        Console.WriteLine("Refresh from main.");
         StateHasChanged();
     }
 }

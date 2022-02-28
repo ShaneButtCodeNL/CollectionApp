@@ -1,25 +1,27 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
 @inject IHttpClientFactory _clientFactory
+@inject ListUpdateService ListUpdater
 
 @if(string.IsNullOrWhiteSpace(errorString)==false){
     <div>@errorString</div>
 }
-else if(items == null){
+else if(Items == null){
     <div>Loading . . .</div>
 }
 
 else{
-    @foreach (Item item in items)
+    @foreach (Item item in Items)
     {
-        <ItemDisplay DisplayItem=@item/>
+        <ItemDisplay @key="item" DisplayItem=@item/>
     }
 }
 
 @code {
     [Parameter]
     public string? ItemCall{get;set;}
-    private List<Item>? items;
+    [CascadingParameter]
+    private List<Item>? Items{get;set;}
     private string? errorString;
     private string ApiString="https://localhost:7000/api/Item/";
 
@@ -27,20 +29,45 @@ else{
         return JsonSerializer.Deserialize<ItemDetails>(i.Details);
     }
 
+    public void RefreshItemList(){
+        Console.WriteLine("RefreshList Called from Component");
+        StateHasChanged();
+    }
+    public async Task RecallItems(){
+        await InvokeAsync(async ()=>{
+            var req=new HttpRequestMessage(HttpMethod.Get,$"{@ApiString}{@ItemCall}");
+        
+            var client=_clientFactory.CreateClient();
+
+            HttpResponseMessage res=await client.SendAsync(req);
+            if(res.IsSuccessStatusCode){
+                Items=await res.Content.ReadFromJsonAsync<List<Item>>();
+                Items.Sort();
+                errorString=null;
+            }
+            else {
+                errorString=$"Something went wrong: {res.ReasonPhrase}";
+                Items=new List<Item>();
+            }
+            StateHasChanged();
+        });
+    }
+
     protected override async Task OnInitializedAsync(){
+        ListUpdater.ListChange+=RecallItems;
         var req=new HttpRequestMessage(HttpMethod.Get,$"{@ApiString}{@ItemCall}");
         
         var client=_clientFactory.CreateClient();
 
         HttpResponseMessage res=await client.SendAsync(req);
         if(res.IsSuccessStatusCode){
-            items=await res.Content.ReadFromJsonAsync<List<Item>>();
-            items.Sort();
+            Items=await res.Content.ReadFromJsonAsync<List<Item>>();
+            Items.Sort();
             errorString=null;
         }
         else {
             errorString=$"Something went wrong: {res.ReasonPhrase}";
-            items=new List<Item>();
+            Items=new List<Item>();
         }
     }
 }

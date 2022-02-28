@@ -11,6 +11,7 @@ builder.Services.AddHttpClient();
 builder.Services.Configure<ApiSettings>(
     builder.Configuration.GetSection("ApiSettings")
 );
+builder.Services.AddSingleton<ListUpdateService>();
 
 var app = builder.Build();
 

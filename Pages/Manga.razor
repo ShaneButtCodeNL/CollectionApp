@@ -1,3 +1,12 @@
 @page "/manga"
 @layout MainLayout
-<ItemList ItemCall="Manga"/>
+<ItemList ItemCall="Manga" @ref="ItemListRef"/>
+
+@code{
+   private ItemList? ItemListRef;
+
+   public void RefreshItemList(){
+      Console.WriteLine("RefreshList called from page Manga");
+      ItemListRef.RefreshItemList();
+   }
+}
