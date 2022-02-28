@@ -20,8 +20,7 @@ else{
 @code {
     [Parameter]
     public string? ItemCall{get;set;}
-    [CascadingParameter]
-    private List<Item>? Items{get;set;}
+    private List<Item>? Items;
     private string? errorString;
     private string ApiString="https://localhost:7000/api/Item/";
 

@@ -4,5 +4,5 @@ public class ListUpdateService{
          await ListChange.Invoke();
       }
    }
-   public event Func<Task> ListChange;
+   public event Func<Task>? ListChange;
 }

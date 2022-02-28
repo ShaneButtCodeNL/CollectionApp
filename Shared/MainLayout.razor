@@ -6,19 +6,16 @@
     <PageTitle>CollectionApp</PageTitle>
     <div class="page @Mode @MyMode">
         <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
-        <AddItem Refresh="@Refresh" ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
+        <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
         <div class="mainApp">
-            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" RefreshMe="@RefreshMe" />
+            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
             <MainNav Mode="@Mode" />        
-            <CascadingValue Value="@Items">
-                @Body
-            </CascadingValue>
+             @Body
         </div>
     </div>
 </CascadingValue>
 
 @code{
-    public List<Item>? Items=null;
     private bool MainBodyRefresh=true;
     private string Mode="darkMode";
     private string FormMode="darkForm";
@@ -41,9 +38,6 @@
       loggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
       if(loggedIn)Show=false;
       StateHasChanged();
-   }
-   public void Refresh(){
-       MainBodyRefresh=!MainBodyRefresh;
    }
 
    public async void Logout(){
@@ -74,10 +68,6 @@
              MyMode="darkModeMain";
              FormMode="darkForm";
         }
-        StateHasChanged();
-    }
-    public void RefreshMe(){
-        Console.WriteLine("Refresh from main.");
         StateHasChanged();
     }
 }
