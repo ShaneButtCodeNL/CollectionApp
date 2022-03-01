@@ -1,13 +1,4 @@
 @page "/figure"
 @inject ListUpdateService ListUpdater
 @layout MainLayout
-<ItemList ItemCall="Figure" @ref="ItemListRef"/>
-
-@code{
-   private ItemList? ItemListRef;
-
-   public void RefreshItemList(){
-      Console.WriteLine("RefreshList called from page Fig");
-      ItemListRef.RefreshItemList();
-   }
-}
+<ItemList ItemCall="Figure" />

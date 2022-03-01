@@ -1,13 +1,6 @@
 ﻿@page "/"
-<ItemList @ref="ItemListRef"/>
+<ItemList />
 
-@code{
-   private ItemList? ItemListRef;
 
-   public void RefreshItemList(){
-      Console.WriteLine("RefreshList called from page All");
-      ItemListRef.RefreshItemList();
-   }
-}
 
 

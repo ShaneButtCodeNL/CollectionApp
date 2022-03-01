@@ -1,12 +1,4 @@
 @page "/videogame"
 @layout MainLayout
-<ItemList ItemCall="VideoGame" @ref="ItemListRef"/>
+<ItemList ItemCall="VideoGame"/>
 
-@code{
-   private ItemList? ItemListRef;
-
-   public void RefreshItemList(){
-      Console.WriteLine("RefreshList called from page VG");
-      ItemListRef.RefreshItemList();
-   }
-}
