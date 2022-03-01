@@ -1,5 +1,5 @@
 .itemDisplay {
-  border: outset 1px;
+  border: solid 1px;
   display: flex;
   border-radius: 1em;
   padding: 1em;
@@ -7,6 +7,7 @@
   width: 60%;
   height: 40vh;
   min-width: min-content;
+  position: relative;
 }
 legend {
   float: none;
@@ -59,4 +60,23 @@ legend {
 
 .valueItemLeft {
   text-align: right;
+}
+
+.darkModeBtn {
+  background-image: var(--dark-gradient-small);
+}
+
+.lightModeBtn {
+  background-image: var(--light-gradient-small);
+}
+
+.deleteItemButton {
+  position: absolute;
+  top: -2em;
+  right: 2em;
+  color: inherit;
+  background-color: inherit;
+  border-radius: 1em;
+  border-color: inherit;
+  border-style: solid;
 }

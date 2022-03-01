@@ -1,5 +1,7 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
+@inject ListUpdateService ListUpdater
+@inject IHttpClientFactory _clientFactory
 
 
 
@@ -105,21 +107,43 @@
          }
       </div>
    </div>
+   <button type="button" class="deleteItemButton @modeBtn" @onclick="@RemoveItem">Del</button>
 </fieldset>
 
 
 @code{
+   private string modeBtn;
+   private string mode;
+   [CascadingParameter]
+   public string? Mode{get=>mode;set{
+      mode=value;
+      modeBtn=$"{value}Btn";
+   }}
    [Parameter]
    public Item? DisplayItem{get;set;} 
    ItemDetails? details;
   
+  private string ApiString="https://localhost:7000/api/Item/";
 
-   
+   private void DeleteItem(){
+
+   }
  
    private string formatBool(bool? b){
-         if(b==true)return "Yes";
-         return "No";
+      if(b==true)return "Yes";
+      return "No";
+   }
+
+   private async void RemoveItem(){
+      if(DisplayItem==null)return;
+      var req=new HttpRequestMessage(HttpMethod.Delete,$"{@ApiString}{@DisplayItem.Id}");
+      var Client=_clientFactory.CreateClient();
+      HttpResponseMessage res=await Client.SendAsync(req);
+      if(res.IsSuccessStatusCode){
+         Console.WriteLine("Sucessful Delete of Item.");
+         await ListUpdater.Update();
       }
+   }
 
    protected override void OnParametersSet(){
       details=JsonSerializer.Deserialize<ItemDetails>(DisplayItem.Details);

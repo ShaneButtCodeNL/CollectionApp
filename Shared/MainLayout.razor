@@ -2,7 +2,7 @@
 @using CollectionApp.Models;
 @inject IHttpClientFactory _clientFactory
 
-<CascadingValue Value="this">
+<CascadingValue Value="@Mode">
     <PageTitle>CollectionApp</PageTitle>
     <div class="page @Mode @MyMode">
         <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
