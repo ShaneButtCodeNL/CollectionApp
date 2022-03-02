@@ -25,7 +25,7 @@ else{
     private string? errorString;
     private string ApiString="https://localhost:7000/api/Item/";
 
-    private ItemDetails? GetDetails(Item i){
+    private ItemDetails? GetDetails(Item? i){
         return JsonSerializer.Deserialize<ItemDetails>(i.Details);
     }
 

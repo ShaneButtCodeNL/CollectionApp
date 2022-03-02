@@ -7,8 +7,28 @@
 
 <fieldset class="itemDisplay">
    <legend>@DisplayItem.Type</legend>
+   @if(LoggedIn){
+      <div class="displayItemButtonContainer">
+         <div class="displayItemButtonInner @mode">
+            <button type="button" class="displayItemButton deleteItemButton" @onclick="@changeShowConfirmDelete">Del</button>
+         </div>
+      </div>
+      @if(showConfirmDelete){
+         <div class="confirmDeleteContainer">
+            <div class="confirmDelete @mode">
+               <div>
+                  Are you sure you wish to delete the @DisplayItem.Type "<i>@details.Name</i>"?
+               </div>
+               <div class="buttonDiv">
+                  <button type="button" @onclick="@RemoveItem">Yes</button>
+                  <button type="button" @onclick="@changeShowConfirmDelete">No</button>
+               </div>
+            </div>
+         </div>
+      }
+   }
    <div class="itemDisplayLeft">
-      <img src=@DisplayItem.ImgPath class="itemDisplayImage" />
+      <img src=@DisplayItem.ImgPath class="itemDisplayImage" alt="An image of @details.Name"/>
    </div>
    <div class="itemDisplayRight">
       <div class="valuesContainer">
@@ -107,13 +127,16 @@
          }
       </div>
    </div>
-   <button type="button" class="deleteItemButton @modeBtn" @onclick="@RemoveItem">Del</button>
+   
 </fieldset>
 
 
 @code{
    private string modeBtn;
+   private bool showConfirmDelete=false;
    private string mode;
+   [CascadingParameter]
+   private bool LoggedIn{get;set;}
    [CascadingParameter]
    public string? Mode{get=>mode;set{
       mode=value;
@@ -124,10 +147,6 @@
    ItemDetails? details;
   
   private string ApiString="https://localhost:7000/api/Item/";
-
-   private void DeleteItem(){
-
-   }
  
    private string formatBool(bool? b){
       if(b==true)return "Yes";
@@ -142,8 +161,10 @@
       if(res.IsSuccessStatusCode){
          Console.WriteLine("Sucessful Delete of Item.");
          await ListUpdater.Update();
+         changeShowConfirmDelete();
       }
    }
+   private void changeShowConfirmDelete()=>showConfirmDelete=!showConfirmDelete;
 
    protected override void OnParametersSet(){
       details=JsonSerializer.Deserialize<ItemDetails>(DisplayItem.Details);

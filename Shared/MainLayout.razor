@@ -3,16 +3,18 @@
 @inject IHttpClientFactory _clientFactory
 
 <CascadingValue Value="@Mode">
+    <CascadingValue Value="@LoggedIn">
     <PageTitle>CollectionApp</PageTitle>
     <div class="page @Mode @MyMode">
         <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
         <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
         <div class="mainApp">
-            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@loggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
+            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@LoggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
             <MainNav Mode="@Mode" />        
              @Body
         </div>
     </div>
+    </CascadingValue>
 </CascadingValue>
 
 @code{
@@ -22,7 +24,7 @@
 
     private string MyMode="darkModeMain";
 
-    public bool loggedIn=true;
+    public bool LoggedIn=true;
     public bool Show=false;
 
     public bool ShowAddItem=false;
@@ -35,13 +37,13 @@
       var data=new {username=user,password=pass};
       var res=await client.PostAsJsonAsync(ApiLoginString,data);
       Console.WriteLine("RES:"+res.ToString());
-      loggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
-      if(loggedIn)Show=false;
+      LoggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
+      if(LoggedIn)Show=false;
       StateHasChanged();
    }
 
    public async void Logout(){
-       loggedIn=false;
+       LoggedIn=false;
        StateHasChanged();
 
    }

@@ -62,21 +62,97 @@ legend {
   text-align: right;
 }
 
-.darkModeBtn {
-  background-image: var(--dark-gradient-small);
-}
-
-.lightModeBtn {
-  background-image: var(--light-gradient-small);
-}
-
-.deleteItemButton {
-  position: absolute;
-  top: -2em;
+.displayItemButtonContainer {
   right: 2em;
+  top: -2.5em;
+  position: absolute;
+}
+
+.displayItemButtonInner {
+  padding: 0.3em 1em;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-image: var(--dark-gradient-small);
+  overflow: hidden;
+  border-radius: 1em;
+  border: solid 2px;
+}
+.displayItemButtonInner::before {
+  content: "";
+  position: absolute;
+  background-image: var(--light-gradient-small);
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: top 500ms ease-out;
+}
+.displayItemButtonInner.lightMode::before {
+  top: 0;
+  z-index: 0;
+}
+
+.displayItemButton {
+  position: relative;
   color: inherit;
-  background-color: inherit;
+  background-color: transparent;
   border-radius: 1em;
   border-color: inherit;
   border-style: solid;
+  border-width: 2px;
+  z-index: 2;
+  transition: color 600ms ease-out;
+}
+
+@keyframes showDeleteContainer {
+  from {
+    max-width: 0%;
+  }
+  to {
+    max-width: 106%;
+  }
+}
+
+.confirmDeleteContainer {
+  position: absolute;
+  height: calc(100% + 3.5em);
+  width: 200%;
+  max-width: 0%;
+  background-color: rgba(100, 100, 100, 0.9);
+  top: -2.8em;
+  left: -2em;
+  display: grid;
+  place-content: center;
+  overflow: hidden;
+  animation-name: showDeleteContainer;
+  animation-duration: 500ms;
+  animation-fill-mode: forwards;
+  z-index: 10;
+}
+.confirmDelete {
+  position: relative;
+  border: solid 1px;
+  display: grid;
+  place-items: center;
+  gap: 2em;
+  padding: 1em;
+}
+.confirmDelete.darkMode {
+  background-image: var(--dark-gradient-small);
+}
+.confirmDelete.lightMode {
+  background-image: var(--light-gradient-small);
+}
+.confirmDelete button {
+  background-color: transparent;
+  border-radius: 0.6em;
+  color: inherit;
+  border-color: inherit;
+  border-style: solid;
+  min-width: 5ch;
+}
+.buttonDiv {
+  display: flex;
+  gap: 1em;
 }
