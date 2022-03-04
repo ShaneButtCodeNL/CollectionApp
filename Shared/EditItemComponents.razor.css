@@ -1,0 +1,66 @@
+.editWindowContainer {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: fit-content;
+  max-width: 0%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background-color: rgba(100, 100, 100, 0.9);
+  z-index: 10;
+  border-radius: 1em;
+  min-height: 100%;
+}
+.editWindowContainer.show {
+  max-width: 100%;
+}
+
+.editWindow {
+  border: solid 1px;
+  border-radius: 1em;
+  margin: 0.5em;
+  background-image: var(--dark-gradient-small);
+  position: relative;
+  overflow: hidden;
+  transition: color 500ms ease-out;
+}
+.editWindow::before {
+  position: absolute;
+  content: "";
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-image: var(--light-gradient-small);
+  z-index: 0;
+  transition: left 500ms ease-out;
+}
+.editWindow.lightMode::before {
+  left: 0;
+}
+.editWindow form {
+  position: relative;
+  display: grid;
+  place-content: center;
+  grid-template-columns: 40% 40%;
+  column-gap: 1em;
+  row-gap: 0.2em;
+  margin: 0.5em;
+  overflow: auto;
+  transition: color 600ms ease-out;
+}
+.editWindow form label {
+  text-align: right;
+}
+.editWindow form button {
+  min-width: fit-content;
+  max-width: 12ch;
+  margin: auto;
+  background-color: transparent;
+  color: inherit;
+  border-color: inherit;
+  border-radius: 0.5em;
+}
+.genreContainer select {
+  width: 100%;
+}

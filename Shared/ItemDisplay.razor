@@ -4,20 +4,12 @@
 @inject IHttpClientFactory _clientFactory
 
 
-
-<fieldset class="itemDisplay">
-   <legend>@DisplayItem.Type</legend>
+<div class="itemDisplayWrapper">
    @if(LoggedIn){
-      <div class="displayItemButtonContainer">
-         <div class="displayItemButtonInner @mode">
-            <button type="button" class="displayItemButton deleteItemButton" @onclick="@changeShowConfirmDelete">Del</button>
-         </div>
-      </div>
-      @if(showConfirmDelete){
-         <div class="confirmDeleteContainer">
-            <div class="confirmDelete @mode">
+         <div class="confirmDeleteContainer @showConfirmDeleteSlide" @onclick="@changeShowConfirmDelete" >
+            <div class="confirmDelete @mode" @onclick:stopPropagation>
                <div>
-                  Are you sure you wish to delete the @DisplayItem.Type "<i>@details.Name</i>"?
+                  Are you sure you wish to delete the @DisplayItem.Type " <i>@details.Name@(DisplayItem.Type=="Manga"&&details.Volume!=null?$" Volume {details.Volume}":"")</i> "?
                </div>
                <div class="buttonDiv">
                   <button type="button" @onclick="@RemoveItem">Yes</button>
@@ -25,10 +17,21 @@
                </div>
             </div>
          </div>
+         <EditItemComponents item="@DisplayItem" details=@details changeShowEdit=@changeShowEdit showEditClass=@showEditClass />
       }
+<fieldset class="itemDisplay">
+   <legend>@DisplayItem.Type</legend>
+   @if(LoggedIn){
+      <div class="displayItemButtonContainer">
+         <div class="displayItemButtonInner @mode">
+            <button type="button" class="displayItemButton editDetailsButton" @onclick=@changeShowEdit>Edit</button>
+            <button type="button" class="displayItemButton deleteItemButton" @onclick="@changeShowConfirmDelete">Del</button>
+         </div>
+      </div>
+      
    }
    <div class="itemDisplayLeft">
-      <img src=@DisplayItem.ImgPath class="itemDisplayImage" alt="An image of @details.Name"/>
+      <img src=@(DisplayItem.ImgPath!=null?DisplayItem.ImgPath:"https://www.freeiconspng.com/uploads/no-image-icon-15.png") class="itemDisplayImage" alt="An image of @details.Name"/>
    </div>
    <div class="itemDisplayRight">
       <div class="valuesContainer">
@@ -109,11 +112,13 @@
                <div class="valueItem">@formatBool(@details.HasCase)</div>
             </div>
          }
-         <div class="valueContainer">
-            <div class="valueItem valueItemLeft">Condition :</div>
-            <div class="valueItem">@details.Condition</div>
-         </div>
-         @if(@details.Genres!=null && @details.Genres.Count != 0){
+         @if(details.Condition!=null){
+            <div class="valueContainer">
+               <div class="valueItem valueItemLeft">Condition :</div>
+               <div class="valueItem">@details.Condition</div>
+            </div>
+         }
+         @if(@details.Genres!=null && @details.Genres[0]!=null){
             <div class="valueContainer">
                <div class="valueItem valueItemLeft">Genres :</div>
                <div class="valueItem">
@@ -126,14 +131,17 @@
             </div>
          }
       </div>
-   </div>
-   
+   </div>   
 </fieldset>
+</div>
 
 
 @code{
    private string modeBtn;
    private bool showConfirmDelete=false;
+   private string showConfirmDeleteSlide="hide";
+   public bool showEdit=false;
+   public string showEditClass="hide";
    private string mode;
    [CascadingParameter]
    private bool LoggedIn{get;set;}
@@ -164,8 +172,15 @@
          changeShowConfirmDelete();
       }
    }
-   private void changeShowConfirmDelete()=>showConfirmDelete=!showConfirmDelete;
+   private void changeShowConfirmDelete(){
+      showConfirmDelete=!showConfirmDelete;
+      showConfirmDeleteSlide=showConfirmDelete?"show":"hide";
+   }
 
+   public void changeShowEdit(){
+      showEdit=!showEdit;
+      showEditClass=showEditClass=="hide"?"show":"hide";
+   }
    protected override void OnParametersSet(){
       details=JsonSerializer.Deserialize<ItemDetails>(DisplayItem.Details);
    }

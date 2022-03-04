@@ -1,10 +1,16 @@
+.itemDisplayWrapper {
+  margin: 1em auto;
+  width: 60%;
+  padding: 1em;
+  position: relative;
+  min-width: min-content;
+}
 .itemDisplay {
   border: solid 1px;
   display: flex;
   border-radius: 1em;
   padding: 1em;
-  margin: 1em auto;
-  width: 60%;
+  width: 100%;
   height: 40vh;
   min-width: min-content;
   position: relative;
@@ -77,6 +83,8 @@ legend {
   overflow: hidden;
   border-radius: 1em;
   border: solid 2px;
+  display: flex;
+  gap: 1em;
 }
 .displayItemButtonInner::before {
   content: "";
@@ -105,30 +113,27 @@ legend {
   transition: color 600ms ease-out;
 }
 
-@keyframes showDeleteContainer {
-  from {
-    max-width: 0%;
-  }
-  to {
-    max-width: 106%;
-  }
-}
-
 .confirmDeleteContainer {
   position: absolute;
-  height: calc(100% + 3.5em);
-  width: 200%;
+  height: 100%;
+  width: 100%;
   max-width: 0%;
   background-color: rgba(100, 100, 100, 0.9);
-  top: -2.8em;
-  left: -2em;
+  top: 0;
+  left: auto;
+  right: 0;
   display: grid;
   place-content: center;
   overflow: hidden;
-  animation-name: showDeleteContainer;
-  animation-duration: 500ms;
-  animation-fill-mode: forwards;
   z-index: 10;
+  border-radius: 1em;
+  transition: max-width 500ms ease-out;
+  animation-direction: reverse;
+}
+.confirmDeleteContainer.show {
+  max-width: 100%;
+  left: 0;
+  right: auto;
 }
 .confirmDelete {
   position: relative;
@@ -137,12 +142,28 @@ legend {
   place-items: center;
   gap: 2em;
   padding: 1em;
-}
-.confirmDelete.darkMode {
+  border-radius: 1em;
+  width: max-content;
+  min-width: 100%;
+  overflow: hidden;
   background-image: var(--dark-gradient-small);
+  transition: color 600ms ease-out;
 }
-.confirmDelete.lightMode {
+.confirmDelete::before {
+  content: "";
   background-image: var(--light-gradient-small);
+  bottom: -100%;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+  transition: bottom 500ms ease-out;
+}
+.confirmDelete.darkMode::before {
+  bottom: -100%;
+}
+.confirmDelete.lightMode::before {
+  bottom: 0;
 }
 .confirmDelete button {
   background-color: transparent;
@@ -151,6 +172,9 @@ legend {
   border-color: inherit;
   border-style: solid;
   min-width: 5ch;
+}
+.confirmDelete div {
+  z-index: 2;
 }
 .buttonDiv {
   display: flex;

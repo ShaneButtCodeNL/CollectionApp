@@ -217,62 +217,8 @@
    private string? itemFrom{get;set;}
    private string? itemAgeRestricted{get;set;}
 
-   private readonly List<string> AnimeGenres = new List<string>{
-      "None",
-      "Kodomo",
-      "Shonen",
-      "Shojo",
-      "Seinen",
-      "Josei",
-      "Harem",
-      "Rev Harem",
-      "Hentai",
-      "Romance",
-      "Horror",
-      "Comedy",
-      "Fanatsy",
-      "Ecchi",
-      "Mecha",
-      "Loli",
-      "Shota",
-      "Isekai",
-      "Yaoi",
-      "Yuri",
-      "Drama",
-      "Supernatural",
-      "Thriller",
-      "Slice of Life",
-      "Adventure",
-      "Battle",
-      "Magic",
-   };
-   private readonly List<string> VideoGameGenres = new List<string>{
-      "None",
-      "Platform",
-      "Shooter",
-      "Beat em Up",
-      "Fighting",
-      "RPG",
-      "JRPG",
-      "Sim",
-      "Strategy",
-      "Sports",
-      "MMO",
-      "Dating Sim",
-      "Gatcha",
-      "Idle",
-      "Racing",
-      "Tower Defense",
-      "First-Person",
-      "Thrid Person",
-      "Real Time",
-      "Rougelike",
-      "Action",
-      "Stealth",
-      "Survival",
-      "Rhythm",
-      "Battle Royal",
-   };
+   private readonly List<string> AnimeGenres =Genres.AnimeGenres;
+   private readonly List<string> VideoGameGenres = Genres.VideoGameGenres;
    private void SoftClear(){
       itemAgeRestricted="";
       itemAuthor="";
