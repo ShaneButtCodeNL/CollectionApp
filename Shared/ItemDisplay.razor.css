@@ -11,9 +11,13 @@
   border-radius: 1em;
   padding: 1em;
   width: 100%;
-  height: 40vh;
+  height: fit-content;
+  min-height: min(375px, 40vh);
   min-width: min-content;
   position: relative;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 3em;
 }
 legend {
   float: none;
@@ -46,7 +50,7 @@ legend {
   background-color: rgba(100, 100, 100, 0.1);
   border: 1px solid;
   max-width: clamp(150px, 50%, 1000px);
-  margin: 0 0 0 3em;
+  margin: auto;
   padding: 1em 2em;
   border-radius: 2em;
   min-width: min-content;
@@ -143,7 +147,6 @@ legend {
   gap: 2em;
   padding: 1em;
   border-radius: 1em;
-  width: max-content;
   min-width: 100%;
   overflow: hidden;
   background-image: var(--dark-gradient-small);

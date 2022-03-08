@@ -24,6 +24,7 @@
   margin: auto;
   transition: color 600ms ease-out;
   will-change: color;
+  text-decoration: none;
 }
 ::deep a:link {
   color: var(--dark-text);
@@ -77,4 +78,9 @@
   top: 0;
   left: 0;
   z-index: -1;
+}
+@media only screen and (max-width: 450px) {
+  .collectionNav {
+    flex-direction: column;
+  }
 }

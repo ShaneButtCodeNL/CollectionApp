@@ -1,0 +1,43 @@
+@page "/search"
+@inject ListUpdateService ListUpdater
+@inject NavigationManager NavMan
+@using Microsoft.AspNetCore.WebUtilities
+@layout MainLayout
+@implements IDisposable
+
+<ItemList ItemCall=@search />
+
+@code{
+   private string search="";
+
+   private void GetQueryStrings(){
+      var uri = NavMan.ToAbsoluteUri(NavMan.Uri);
+      if(QueryHelpers.ParseQuery(uri.Query).TryGetValue("name",out var searchName)){
+         search=$"Search/{searchName}";
+      }
+   }
+
+   async void  MyHandler(object sender,LocationChangedEventArgs e){
+      GetQueryStrings();
+      StateHasChanged();
+
+      await ListUpdater.Update();
+      StateHasChanged();
+   }
+
+   protected override void OnInitialized(){
+      GetQueryStrings();
+      NavMan.LocationChanged += MyHandler;
+   }
+
+   public void Dispose(){
+      NavMan.LocationChanged -= MyHandler;
+   }
+
+
+#line default
+#line hidden
+#nullable disable
+
+
+}

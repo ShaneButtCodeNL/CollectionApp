@@ -1,0 +1,20 @@
+@inject NavigationManager NavMan
+
+
+<div class="searchBarWrapper">
+   <div class="searchBarContainer">
+      <input class="searchInput" type="text" @bind=search name="Search Bar" placeholder="Search . . ."/>
+      <a href=@($"{myPage}Search?name={search}")>
+         <div class="searchButton" >Search</div>
+      </a>
+   </div>
+</div>
+
+@code{
+   private string search="";
+
+   private string myPage="";
+   protected override void OnInitialized(){
+      myPage=NavMan.BaseUri;
+   }
+}

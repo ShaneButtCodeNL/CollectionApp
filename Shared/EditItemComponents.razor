@@ -163,8 +163,10 @@
             <label for="condition">Condition:</label>
             <input type="text" name="condition" @bind="@condition"/>
          }
-         <button type="button" @onclick=UpdateItem>Submit</button>
-         <button type="button" @onclick=changeShowEdit>Cancel</button>
+         <div class="editWindowBtnContainer">
+            <button type="button" @onclick=UpdateItem>Submit</button>
+            <button type="button" @onclick=changeShowEdit>Cancel</button>
+         </div>
       </form>
    </div>
 </div>

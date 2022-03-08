@@ -1,5 +1,5 @@
 @import url("open-iconic/font/css/open-iconic-bootstrap.min.css");
-
+@import url("https://fonts.googleapis.com/css2?family=Aclonica&family=Hahmlet&display=swap");
 :root {
   --dark-text: gold;
   --dark-bg: rgb(20, 20, 20);
@@ -41,9 +41,16 @@
 
 html,
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Hahmlet", serif;
   overflow: hidden;
   box-sizing: border-box;
+  font-size: medium;
+}
+@media only screen and (max-width: 600px) {
+  html,
+  body {
+    font-size: small;
+  }
 }
 .darkMode {
   color: var(--dark-text);
@@ -75,7 +82,8 @@ body {
   left: -100vw;
   top: 0;
   z-index: -1;
-  transition: left 500ms ease-in-out;
+  max-width: 0;
+  transition: left 500ms ease-in-out, max-width 0ms linear 500ms;
   will-change: left;
 }
 .page::after {
@@ -88,14 +96,19 @@ body {
   right: -100vw;
   top: 0;
   z-index: -1;
-  transition: right 500ms ease-in-out;
+  max-width: 0;
+  transition: right 500ms ease-in-out, max-width 0ms linear 500ms;
   will-change: right;
 }
 .lightModeMain::before {
   left: -50vw;
+  max-width: 100%;
+  transition: left 500ms ease-in-out, max-width 0ms linear 0ms;
 }
 .lightModeMain::after {
   right: -50vw;
+  max-width: 100%;
+  transition: right 500ms ease-in-out, max-width 0ms linear 0ms;
 }
 h1:focus {
   outline: none;

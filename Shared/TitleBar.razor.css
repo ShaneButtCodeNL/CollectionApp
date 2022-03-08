@@ -10,10 +10,14 @@
   display: flex;
   flex-direction: row;
   gap: 1em;
+  flex-wrap: wrap;
 }
 
 .rightTitleBar {
   justify-content: start;
+}
+.leftTitleBar div {
+  min-width: max-content;
 }
 
 .leftTitleBar {
@@ -21,6 +25,7 @@
 }
 
 .centerTitleBar {
+  font-family: "Aclonica", sans-serif;
   justify-self: center;
   text-align: center;
   font-size: xx-large;
@@ -67,4 +72,15 @@
 }
 .lightButton::before {
   left: -100%;
+}
+@media only screen and (max-width: 450px) {
+  .titleContainer {
+    grid-template-columns: 100%;
+  }
+  .titleBarPartition {
+    margin: auto;
+  }
+  .leftTitleBar {
+    justify-content: center;
+  }
 }

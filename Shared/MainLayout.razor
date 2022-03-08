@@ -4,21 +4,22 @@
 
 <CascadingValue Value="@Mode">
     <CascadingValue Value="@LoggedIn">
-    <PageTitle>CollectionApp</PageTitle>
-    <div class="page @Mode @MyMode">
-        <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
-        <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
-        <div class="mainApp">
-            <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@LoggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
-            <MainNav Mode="@Mode" />        
-             @Body
+        <CascadingValue Value=@Refresh>
+        <PageTitle>CollectionApp</PageTitle>
+        <div class="page @Mode @MyMode">
+            <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
+            <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
+            <div class="mainApp">
+                <TitleBar ChangeMode="@ChangeMode" Mode="@Mode" Show="@Show" ChangeShow="@ChangeShow" loggedIn="@LoggedIn" Logout="@Logout" ChangeShowAddItem="@ChangeShowAddItem" />
+                <MainNav Mode="@Mode" />        
+                 @Body
+            </div>
         </div>
-    </div>
+        </CascadingValue>
     </CascadingValue>
 </CascadingValue>
 
 @code{
-    private bool MainBodyRefresh=true;
     private string Mode="darkMode";
     private string FormMode="darkForm";
 
@@ -32,6 +33,11 @@
     private readonly string ApiLoginString="https://localhost:7000/api/Login";
 
     private readonly HttpClient client=new HttpClient();
+
+    public void Refresh(){
+        Console.WriteLine("Refresh called . . .");
+        StateHasChanged();
+    }
 
     public async void Login(string user,string pass){
       var data=new {username=user,password=pass};
