@@ -6,7 +6,7 @@
     <CascadingValue Value="@LoggedIn">
         <CascadingValue Value=@Refresh>
         <PageTitle>CollectionApp</PageTitle>
-        <div class="page @Mode @MyMode">
+        <div id="page" class="page @Mode @MyMode">
             <LoginWindow Login="@Login" Show="@Show" FormMode="@FormMode" ChangeShow="@ChangeShow"/>
             <AddItem ChangeShowAddItem="@ChangeShowAddItem" ShowAddItem="@ShowAddItem" FormMode="@FormMode" />
             <div class="mainApp">
@@ -25,7 +25,7 @@
 
     private string MyMode="darkModeMain";
 
-    public bool LoggedIn=true;
+    public bool LoggedIn=false;
     public bool Show=false;
 
     public bool ShowAddItem=false;

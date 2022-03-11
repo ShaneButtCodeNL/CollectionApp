@@ -6,7 +6,7 @@
 
 <div class="editWindowContainer @showEditClass" @onclick=@changeShowEdit>
    <div class="editWindow @Mode" @onclick:stopPropagation>
-      <form>
+      <form class="editForm">
          @if(item.Type=="Anime"){
             <label for="name">Name:</label>
             <input type="text" name="name" @bind="@name"/>

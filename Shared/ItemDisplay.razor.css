@@ -4,6 +4,7 @@
   padding: 1em;
   position: relative;
   min-width: min-content;
+  max-width: 1200px;
 }
 .itemDisplay {
   border: solid 1px;
@@ -15,7 +16,6 @@
   min-height: min(375px, 40vh);
   min-width: min-content;
   position: relative;
-  flex-wrap: wrap;
   justify-content: space-around;
   gap: 3em;
 }
@@ -32,6 +32,8 @@ legend {
   max-height: 100%;
   border: 1px solid;
   border-radius: 1em;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 .itemDisplayRight {
   flex-grow: 1;
@@ -44,12 +46,14 @@ legend {
   display: grid;
   place-items: center;
   min-width: min-content;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .valuesContainer {
   background-color: rgba(100, 100, 100, 0.1);
   border: 1px solid;
-  max-width: clamp(150px, 50%, 1000px);
+  max-width: clamp(150px, 75%, 1000px);
   margin: auto;
   padding: 1em 2em;
   border-radius: 2em;
@@ -70,6 +74,9 @@ legend {
 
 .valueItemLeft {
   text-align: right;
+}
+.valueItemLeft span {
+  white-space: pre;
 }
 
 .displayItemButtonContainer {
@@ -147,7 +154,7 @@ legend {
   gap: 2em;
   padding: 1em;
   border-radius: 1em;
-  min-width: 100%;
+  min-width: 200px;
   overflow: hidden;
   background-image: var(--dark-gradient-small);
   transition: color 600ms ease-out;
@@ -182,4 +189,62 @@ legend {
 .buttonDiv {
   display: flex;
   gap: 1em;
+}
+@media only screen and (max-width: 1210px) {
+  .itemDisplayWrapper {
+    width: 50%;
+  }
+  .itemDisplay {
+    flex-direction: column;
+    align-items: center;
+  }
+  .valuesContainer {
+    max-width: clamp(150px, 50%, 1000px);
+  }
+}
+@media only screen and (max-width: 600px) {
+  .valuesContainer {
+    border: none;
+    margin: 0;
+    background-image: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  .valueContainer {
+    grid-template-columns: 1fr;
+    gap: 0.1em;
+    margin: 01em;
+    border: solid 1px;
+    border-radius: 0.5em;
+    min-width: 100px;
+    padding: 0;
+  }
+  .valueItem {
+    text-align: center;
+  }
+  .valueItemLeft {
+    border-bottom: 1px solid;
+    width: 100%;
+  }
+  .valueItemLeft span {
+    display: none;
+  }
+  .itemDisplayLeft {
+    display: none;
+  }
+  .displayItemButtonContainer {
+    right: auto;
+    left: 100%;
+    top: 5em;
+  }
+  .displayItemButtonInner {
+    flex-direction: column;
+    gap: 3em;
+    padding: 1em 0em;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+  }
+  .displayItemButton {
+    transform: rotate(90deg);
+  }
 }

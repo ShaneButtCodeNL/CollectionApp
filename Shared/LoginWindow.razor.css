@@ -15,8 +15,7 @@
 }
 
 .loginFormWrapper {
-  width: 70%;
-  min-height: 50%;
+  position: relative;
   z-index: 101;
   display: grid;
   place-items: center;
@@ -24,13 +23,25 @@
 
 .loginForm {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
   row-gap: 1em;
+  column-gap: 1em;
   margin: auto;
   place-items: center;
   padding: 1em;
   border: solid 2px;
   border-radius: 1em;
+  width: clamp(190px, 70vw, 400px);
+}
+.loginForm input {
+  width: 100%;
+  max-width: 20ch;
+}
+.loginForm div {
+  width: 100%;
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: space-around;
 }
 .lightForm {
   background-image: var(--light-gradient-small);

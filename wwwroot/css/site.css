@@ -71,6 +71,7 @@ body {
   transition: color 600ms ease-out;
   will-change: color;
   z-index: 2;
+  padding: 0em;
 }
 .page::before {
   position: absolute;
