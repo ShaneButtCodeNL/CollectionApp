@@ -6,14 +6,21 @@
       </div>
       <!-- Hidden on logout -->
       <div class="@loginDisplay titleItem">
-         <button type="button" class="titleButton" @onclick="@ChangeShowAddItem" >Add Item</button>
+         <button type="button" class="titleButton" @onclick="@ChangeShowAddItem" ><i class="fa-solid fa-plus"></i> Item</button>
       </div>
       <!-- Hidden on logout -->
       <div class="@loginDisplay titleItem">
          <button type="button" class="titleButton" @onclick="Logout">Logout</button>
       </div>
       <div class="titleItem">
-         <button type="button" class="titleButton modeButton @modeButtonClass" @onclick="SwapMode">@mode Mode</button>
+         <button type="button" class="titleButton modeButton @modeButtonClass" @onclick="SwapMode">
+            @if(mode=="Dark"){
+               <i class="fa-solid fa-moon"></i>
+            }
+            else {
+               <i class="fa-solid fa-sun"></i>
+            }
+         </button>
       </div>
    </div>
    <div class="centerTitleBar titleBarPartition">

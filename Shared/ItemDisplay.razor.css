@@ -116,10 +116,7 @@ legend {
   position: relative;
   color: inherit;
   background-color: transparent;
-  border-radius: 1em;
-  border-color: inherit;
-  border-style: solid;
-  border-width: 2px;
+  border: none;
   z-index: 2;
   transition: color 600ms ease-out;
 }
@@ -157,7 +154,7 @@ legend {
   min-width: 200px;
   overflow: hidden;
   background-image: var(--dark-gradient-small);
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
 }
 .confirmDelete::before {
   content: "";
@@ -240,11 +237,8 @@ legend {
   .displayItemButtonInner {
     flex-direction: column;
     gap: 3em;
-    padding: 1em 0em;
+    padding: 1em 0.2em;
     border-top-left-radius: 0%;
     border-bottom-left-radius: 0%;
-  }
-  .displayItemButton {
-    transform: rotate(90deg);
   }
 }

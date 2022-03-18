@@ -68,7 +68,7 @@ body {
 }
 .page {
   position: relative;
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
   will-change: color;
   z-index: 2;
   padding: 0em;
@@ -79,12 +79,11 @@ body {
   width: 100vw;
   height: 100vh;
   background-image: var(--light-gradient);
-  background-position: 50vw;
   left: -100vw;
   top: 0;
   z-index: -1;
   max-width: 0;
-  transition: left 500ms ease-in-out, max-width 0ms linear 500ms;
+  transition: left 1000ms ease-in-out, max-width 0ms ease-out 1000ms;
   will-change: left;
 }
 .page::after {
@@ -93,23 +92,22 @@ body {
   width: 100vw;
   height: 100vh;
   background-image: var(--light-gradient);
-  background-position: -50vw;
   right: -100vw;
   top: 0;
   z-index: -1;
   max-width: 0;
-  transition: right 500ms ease-in-out, max-width 0ms linear 500ms;
+  transition: right 1000ms ease-in-out, max-width 0ms ease-out 1000ms;
   will-change: right;
 }
 .lightModeMain::before {
-  left: -50vw;
+  left: 0vw;
   max-width: 100%;
-  transition: left 500ms ease-in-out, max-width 0ms linear 0ms;
+  transition: left 1000ms ease-in-out;
 }
 .lightModeMain::after {
-  right: -50vw;
+  right: 0vw;
   max-width: 100%;
-  transition: right 500ms ease-in-out, max-width 0ms linear 0ms;
+  transition: right 1000ms ease-in-out;
 }
 h1:focus {
   outline: none;

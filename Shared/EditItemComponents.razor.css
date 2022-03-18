@@ -54,7 +54,7 @@
   margin: 0.5em 1em;
   margin-left: 0;
   overflow: auto;
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
 }
 .editWindow form label {
   text-align: right;

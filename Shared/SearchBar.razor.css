@@ -1,7 +1,11 @@
 .searchBarContainer {
   display: flex;
-  gap: 1em;
+  gap: 0.5em;
   flex-wrap: wrap;
+  background-color: rgba(100, 100, 100, 0.2);
+
+  padding: 0.3em 0.1em 0.3em 0;
+  border-radius: 1em;
 }
 .searchBarContainer a {
   color: inherit;
@@ -23,17 +27,59 @@
   padding: 0.1em 1em;
   max-width: 10vw;
   min-width: 8.5ch;
+  order: 1;
 }
 
 .searchButton {
-  border: outset 3px;
   border-radius: 1em;
-  padding: 0.2em 0.5em;
-  min-width: 8.5ch;
-  text-align: center;
+  padding: 0.2em 0.2em;
+  order: 0;
+}
+@media only screen and (max-width: 700px) {
+  .searchBarContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+  }
+  .searchButton {
+    order: 4;
+    margin: auto;
+    width: fit-content;
+    border: 3px outset;
+  }
+  .searchInput {
+    order: 0;
+  }
 }
 @media only screen and (max-width: 450px) {
   .searchBarContainer {
     justify-content: center;
+    flex-direction: row;
+    background-color: rgba(100, 100, 100, 0.2);
+    padding: 0.2em 0.5em;
+  }
+
+  .searchButton {
+    border: none;
+  }
+
+  .searchInput {
+    order: 2;
+  }
+}
+@media only screen and (max-width: 175px) {
+  .searchBarContainer {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+  }
+  .searchButton {
+    order: 4;
+    margin: auto;
+    width: fit-content;
+    border: 3px outset;
+  }
+  .searchInput {
+    order: 0;
   }
 }

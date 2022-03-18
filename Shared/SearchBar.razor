@@ -3,9 +3,11 @@
 
 <div class="searchBarWrapper">
    <div class="searchBarContainer">
-      <input class="searchInput" type="text" @bind=search name="Search Bar" placeholder="Search . . ."/>
+      <input class="searchInput" type="text" @bind=search name="Search Bar" placeholder="Search"/>
       <a href=@($"{myPage}Search?name={search}")>
-         <div class="searchButton" >Search</div>
+         <div class="searchButton" >
+            <i class="fa-solid fa-magnifying-glass"></i>
+         </div>
       </a>
    </div>
 </div>

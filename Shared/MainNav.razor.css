@@ -1,7 +1,7 @@
 .navContainer {
   width: 60%;
   margin: 0 auto;
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
 }
 
 .collectionNav {
@@ -17,7 +17,7 @@
   display: grid;
   place-items: center;
   position: relative;
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
   will-change: color;
   text-align: center;
   min-width: 75px;
@@ -25,7 +25,7 @@
 
 ::deep a {
   margin: auto;
-  transition: color 600ms ease-out;
+  transition: color 700ms ease-out 300ms;
   will-change: color;
   text-decoration: none;
 }
