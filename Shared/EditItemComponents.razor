@@ -9,11 +9,11 @@
       <form class="editForm">
          @if(item.Type=="Anime"){
             <label for="name">Name:</label>
-            <input type="text" name="name" @bind="@name"/>
+            <input type="text" name="name" @bind="@name" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="image path">Image Path:</label>
-            <input type="text" name="image path" @bind="@imgPath"/>
+            <input type="text" name="image path" @bind="@imgPath" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="mediatype">Media Type :</label>
-               <select name="mediatype" @bind="@mediaType" >
+               <select name="mediatype" @bind="@mediaType" tabindex=@(showEditClass == "show"?"0":"-1")>
                   <option value="">Don't State</option>
                   <option value="DVD">DVD</option>
                   <option value="BluRay">BluRay</option>
@@ -21,81 +21,81 @@
                   <option value="Digital">Digital</option>
                </select>
                <label for="releasedate">Release Date :</label>
-               <input type="date" name="releasedate" @bind="@releaseDate" />
+               <input type="date" name="releasedate" @bind="@releaseDate" tabindex=@(showEditClass == "show"?"0":"-1")/>
                <label for="publisher">Publisher :</label>
-               <input name="publisher" type="text" @bind="@publisher"/>
+               <input name="publisher" type="text" @bind="@publisher" tabindex=@(showEditClass == "show"?"0":"-1")/>
                <label for="limitededition">Limited Edition :</label>
-               <select name="limitededition" @bind="@limitedEdition" >
+               <select name="limitededition" @bind="@limitedEdition" tabindex=@(showEditClass == "show"?"0":"-1")>
                   <option value="">Don't State</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                </select>
                <label for="genres">Genres :</label>
                <div name="genres" class="genreContainer">
-                  <select name="firstgenre" @bind="genre1">
+                  <select name="firstgenre" @bind="genre1" tabindex=@(showEditClass == "show"?"0":"-1")>
                      @foreach (var g in AnimeGenres){
                         <option value=@g>@g</option>
                      }
                   </select>
-                  <select name="secondgenre" @bind="genre2" >
+                  <select name="secondgenre" @bind="genre2" tabindex=@(showEditClass == "show"?"0":"-1")>
                      @foreach (var g in AnimeGenres){
                         <option value=@g>@g</option>
                      }
                   </select>
-                  <select name="thirdgenre" @bind="genre3">
+                  <select name="thirdgenre" @bind="genre3" tabindex=@(showEditClass == "show"?"0":"-1")>
                      @foreach (var g in AnimeGenres){
                         <option value=@g>@g</option>
                      }
                   </select>
                </div>
             <label for="condition">Condition:</label>
-            <input type="text" name="condition" @bind="@condition"/>
+            <input type="text" name="condition" @bind="@condition" tabindex=@(showEditClass == "show"?"0":"-1")/>
          }
          @if(item.Type=="Manga"){
             <label for="name">Name:</label>
-            <input type="text" name="name" @bind="@name"/>
+            <input type="text" name="name" @bind="@name" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="image path">Image Path:</label>
-            <input type="text" name="image path" @bind="@imgPath"/>
+            <input type="text" name="image path" @bind="@imgPath" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="volume">Volume :</label>
-            <input type="text" name="volume" @bind="@volume"/>
+            <input type="text" name="volume" @bind="@volume" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="author">Author :</label>
-            <input name="author" type="text" @bind="@author"/>
+            <input name="author" type="text" @bind="@author" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="publisher">Publisher :</label>
-            <input name="publisher" type="text" @bind="@publisher"/>
+            <input name="publisher" type="text" @bind="@publisher" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="condition">Condition:</label>
-            <input type="text" name="condition" @bind="@condition"/>
+            <input type="text" name="condition" @bind="@condition" tabindex=@(showEditClass == "show"?"0":"-1")/>
          }
          @if(item.Type=="Figure"){
             <label for="name">Name:</label>
-            <input type="text" name="name" @bind="@name"/>
+            <input type="text" name="name" @bind="@name" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="image path">Image Path:</label>
-            <input type="text" name="image path" @bind="@imgPath"/>
+            <input type="text" name="image path" @bind="@imgPath" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="figuretype">Figure Type :</label>
-            <input type="text" name="figuretype" @bind="@type"/>
+            <input type="text" name="figuretype" @bind="@type" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="from">From :</label>
-            <input type="text" name="from" @bind="@from" />
+            <input type="text" name="from" @bind="@from" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="sealed">Sealed :</label>
-               <select name="sealed" @bind="@isSealed" >
+               <select name="sealed" @bind="@isSealed" tabindex=@(showEditClass == "show"?"0":"-1")>
                   <option value="">Don't State</option>
                   <option value="yes">Yes</option>
                   <option value="no">No</option>
                </select>
             <label for="agerestricted">18<sup>+</sup> :</label>
-            <select name="agerestricted" @bind="@ageRestricted" >
+            <select name="agerestricted" @bind="@ageRestricted" tabindex=@(showEditClass == "show"?"0":"-1")>
                <option value="">Don't State</option>
                <option value="yes">Yes</option>
                <option value="no">No</option>
             </select>
             <label for="condition">Condition:</label>
-            <input type="text" name="condition" @bind="@condition"/>
+            <input type="text" name="condition" @bind="@condition" tabindex=@(showEditClass == "show"?"0":"-1")/>
          }
          @if(item.Type=="VideoGame"){
             <label for="name">Name:</label>
-            <input type="text" name="name" @bind="@name"/>
+            <input type="text" name="name" @bind="@name" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="image path">Image Path:</label>
-            <input type="text" name="image path" @bind="@imgPath"/>
+            <input type="text" name="image path" @bind="@imgPath" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="platform">Platform</label>
-            <select name="platform" @bind="@platform" >
+            <select name="platform" @bind="@platform" tabindex=@(showEditClass == "show"?"0":"-1")>
                <option value="">Don't State</option>
                <option value="PS1">PS1</option>
                <option value="PS2">PS2</option>
@@ -121,51 +121,51 @@
                <option value="3DS">3DS</option>
             </select>
             <label for="releasedate">Release Date :</label>
-            <input type="date" name="releasedate" @bind="@releaseDate" />
+            <input type="date" name="releasedate" @bind="@releaseDate" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="publisher">Publisher :</label>
-            <input name="publisher" type="text" @bind="@publisher"/>
+            <input name="publisher" type="text" @bind="@publisher" tabindex=@(showEditClass == "show"?"0":"-1")/>
             <label for="limitededition">Limited Edition :</label>
-            <select name="limitededition" @bind="@limitedEdition" >
+            <select name="limitededition" @bind="@limitedEdition" tabindex=@(showEditClass == "show"?"0":"-1")>
                <option value="">Don't State</option>
                <option value="yes">Yes</option>
                <option value="no">No</option>
             </select>
             <label for="hascase">Has Case :</label>
-            <select name="hasCase" @bind="@hasCase" >
+            <select name="hasCase" @bind="@hasCase" tabindex=@(showEditClass == "show"?"0":"-1")>
                <option value="">Don't State</option>
                <option value="yes">Yes</option>
                <option value="no">No</option>
             </select>
             <label for="sealed">Sealed :</label>
-            <select name="sealed" @bind="@isSealed" >
+            <select name="sealed" @bind="@isSealed" tabindex=@(showEditClass == "show"?"0":"-1")>
                <option value="">Don't State</option>
                <option value="yes">Yes</option>
                <option value="no">No</option>
             </select>
             <label for="genres">Genres :</label>
             <div name="genres" class="genreContainer">
-               <select name="firstgenre" @bind="genre1">
+               <select name="firstgenre" @bind="genre1" tabindex=@(showEditClass == "show"?"0":"-1")>
                   @foreach (var g in VideoGameGenres){
                      <option value=@g>@g</option>
                   }
                </select>
-               <select name="secondgenre" @bind="genre2" >
+               <select name="secondgenre" @bind="genre2" tabindex=@(showEditClass == "show"?"0":"-1")>
                   @foreach (var g in VideoGameGenres){
                      <option value=@g>@g</option>
                   }
                </select>
-               <select name="thirdgenre" @bind="genre3">
+               <select name="thirdgenre" @bind="genre3" tabindex=@(showEditClass == "show"?"0":"-1")>
                   @foreach (var g in VideoGameGenres){
                      <option value=@g>@g</option>
                   }
                </select>
             </div>
             <label for="condition">Condition:</label>
-            <input type="text" name="condition" @bind="@condition"/>
+            <input type="text" name="condition" @bind="@condition" tabindex=@(showEditClass == "show"?"0":"-1")/>
          }
          <div class="editWindowBtnContainer">
-            <button type="button" @onclick=UpdateItem>Submit</button>
-            <button type="button" @onclick=changeShowEdit>Cancel</button>
+            <button type="button" @onclick=UpdateItem tabindex=@(showEditClass == "show"?"0":"-1")>Submit</button>
+            <button type="button" @onclick=changeShowEdit tabindex=@(showEditClass == "show"?"0":"-1")>Cancel</button>
          </div>
       </form>
    </div>

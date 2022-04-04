@@ -12,8 +12,8 @@
                   Are you sure you wish to delete the @DisplayItem.Type " <i>@details.Name@(DisplayItem.Type=="Manga"&&details.Volume!=null?$" Volume {details.Volume}":"")</i> "?
                </div>
                <div class="buttonDiv">
-                  <button type="button" @onclick="@RemoveItem">Yes</button>
-                  <button type="button" @onclick="@changeShowConfirmDelete">No</button>
+                  <button type="button" @onclick="@RemoveItem" tabindex=@(showConfirmDeleteSlide == "show"?"0":"-1")>Yes</button>
+                  <button type="button" @onclick="@changeShowConfirmDelete" tabindex=@(showConfirmDeleteSlide == "show"?"0":"-1")>No</button>
                </div>
             </div>
          </div>
@@ -24,8 +24,8 @@
    @if(LoggedIn){
       <div class="displayItemButtonContainer">
          <div class="displayItemButtonInner @mode">
-            <button type="button" class="displayItemButton editDetailsButton" @onclick=@changeShowEdit><i class="fa-solid fa-pen-to-square"></i></button>
-            <button type="button" class="displayItemButton deleteItemButton" @onclick="@changeShowConfirmDelete"><i class="fa-solid fa-trash-can"></i></button>
+            <button type="button" class="displayItemButton editDetailsButton" @onclick=@changeShowEdit tabindex=@(showEditClass=="show"||showConfirmDeleteSlide == "show"?"-1":"0")><i class="fa-solid fa-pen-to-square"></i></button>
+            <button type="button" class="displayItemButton deleteItemButton" @onclick="@changeShowConfirmDelete" tabindex=@(showEditClass=="show"||showConfirmDeleteSlide == "show"?"-1":"0")><i class="fa-solid fa-trash-can"></i></button>
          </div>
       </div>
       
