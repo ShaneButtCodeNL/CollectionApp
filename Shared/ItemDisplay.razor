@@ -1,5 +1,7 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
+@using System.Net.Http.Headers;
+
 @inject ListUpdateService ListUpdater
 @inject IHttpClientFactory _clientFactory
 
@@ -144,6 +146,8 @@
    public string showEditClass="hide";
    private string mode;
    [CascadingParameter]
+   private string Token{get;set;}
+   [CascadingParameter]
    private bool LoggedIn{get;set;}
    [CascadingParameter]
    public string? Mode{get=>mode;set{
@@ -165,6 +169,7 @@
       if(DisplayItem==null)return;
       var req=new HttpRequestMessage(HttpMethod.Delete,$"{@ApiString}{@DisplayItem.Id}");
       var Client=_clientFactory.CreateClient();
+      Client.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer",Token);
       HttpResponseMessage res=await Client.SendAsync(req);
       if(res.IsSuccessStatusCode){
          Console.WriteLine("Sucessful Delete of Item.");

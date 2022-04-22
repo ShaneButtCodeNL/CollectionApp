@@ -3,6 +3,7 @@
 @inject IHttpClientFactory _clientFactory
 
 <CascadingValue Value="@Mode">
+    <CascadingValue Value="@Token">
     <CascadingValue Value="@LoggedIn">
         <CascadingValue Value=@Refresh>
         <PageTitle>CollectionApp</PageTitle>
@@ -17,13 +18,16 @@
         </div>
         </CascadingValue>
     </CascadingValue>
+    </CascadingValue>
 </CascadingValue>
-
+ 
 @code{
     private string Mode="darkMode";
     private string FormMode="darkForm";
 
     private string MyMode="darkModeMain";
+
+    private string? Token=null;
 
     public bool LoggedIn=false;
     public bool Show=false;
@@ -42,14 +46,19 @@
     public async void Login(string user,string pass){
       var data=new {username=user,password=pass};
       var res=await client.PostAsJsonAsync(ApiLoginString,data);
-      Console.WriteLine("RES:"+res.ToString());
-      LoggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
-      if(LoggedIn)Show=false;
+      Token=await res.Content.ReadAsStringAsync();
+      //LoggedIn=res.StatusCode==System.Net.HttpStatusCode.NoContent;
+      //if(LoggedIn)Show=false;
+      if(res.StatusCode==System.Net.HttpStatusCode.OK){
+          LoggedIn=true;
+          Show=false;
+      }
       StateHasChanged();
    }
 
    public async void Logout(){
        LoggedIn=false;
+       Token=null;
        StateHasChanged();
 
    }

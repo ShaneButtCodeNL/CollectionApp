@@ -1,5 +1,8 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
+@using System.Net;
+@using System.Net.Http.Headers;
+
 @inject IHttpClientFactory _clientFactory
 @inject ListUpdateService ListUpdater
 
@@ -173,6 +176,8 @@
    private string mode="dark";
    private bool show=false;
 
+   [CascadingParameter]
+   public string Token{get;set;}
    [Parameter]
    public bool ShowAddItem{get=>show;
    set{
@@ -288,8 +293,9 @@
       string str=JsonSerializer.Serialize(newDetails);
       Console.WriteLine(str);
       var data=new {imgPath=itemImgPath,type=itemType,details=str};
-      var res = await new HttpClient().PostAsJsonAsync(apiString,data);
-      Console.WriteLine("Am getting here . . .");
+      var client = new HttpClient();
+      client.DefaultRequestHeaders.Authorization=new AuthenticationHeaderValue("Bearer",Token);
+      var res = await client.PostAsJsonAsync(apiString,data);
       ChangeShowAddItem();
       await ListUpdater.Update();
 

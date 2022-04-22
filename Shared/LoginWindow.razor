@@ -20,6 +20,8 @@
    private string Username{get;set;}="";
    private string Password{get;set;}="";
    private bool show;
+   [CascadingParameter]
+   public string Token{get;set;}
    [Parameter]
    public string FormMode{get;set;}
    [Parameter]

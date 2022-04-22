@@ -1,5 +1,7 @@
 @using CollectionApp.Models;
 @using System.Text.Json;
+@using System.Net.Http.Headers;
+
 @inject IHttpClientFactory _clientFactory
 @inject ListUpdateService ListUpdater
 
@@ -175,6 +177,8 @@
 
 @code{
    [CascadingParameter]
+   private string Token{get;set;}
+   [CascadingParameter]
    public string Mode{get;set;}
    [Parameter]
    public Item item{get;set;}
@@ -282,7 +286,10 @@
       newDetails.Volume=(volume==null||volume=="")?null:Int32.Parse(volume);
       string str=JsonSerializer.Serialize(newDetails);
       var data=new {imgPath=imgPath,type=item.Type,details=str};
-      var res=await new HttpClient().PutAsJsonAsync($"{ApiString}{item.Id}",data);
+      var client=new HttpClient();
+      client.DefaultRequestHeaders.Authorization=new AuthenticationHeaderValue("Bearer",Token);
+      var res=await client.PutAsJsonAsync($"{ApiString}{item.Id}",data);
+
       await ListUpdater.Update();
    }
    protected override void OnParametersSet(){
