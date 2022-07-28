@@ -7,6 +7,6 @@
 
    public void RefreshItemList(){
       Console.WriteLine("RefreshList called from page Anime");
-      ItemListRef.RefreshItemList();
+      if(ItemListRef != null)ItemListRef.RefreshItemList();
    }
 }

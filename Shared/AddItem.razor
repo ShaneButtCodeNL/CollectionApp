@@ -171,13 +171,13 @@
 
    private readonly string apiString ="https://localhost:7000/api/Item";
    private string hideWindow="hide";
-   private Action changeShowAddItem;
+   private Action changeShowAddItem=()=>{};
    private string type="Anime";
    private string mode="dark";
    private bool show=false;
 
    [CascadingParameter]
-   public string Token{get;set;}
+   public string Token{get;set;}="";
    [Parameter]
    public bool ShowAddItem{get=>show;
    set{
@@ -186,7 +186,7 @@
       else hideWindow="hide";
    }}
    [Parameter]
-   public string FormMode{get;set;}
+   public string FormMode{get;set;}="";
    [Parameter]
    public Action ChangeShowAddItem{
       get{
